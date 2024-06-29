@@ -1,0 +1,26 @@
+pipeline{
+    agent any
+    stages{
+        stage("checkout"){
+            steps{
+                git 'https://github.com/manikaku/Docker-Project.git'
+            }
+        }
+        stage('build'){
+            steps{
+                sh 'docker build -t $image .'
+            }
+        }
+        stage('tag'){
+            steps{
+                sh 'docker tag $image $repo'
+            }
+        }
+        stage('push'){
+            steps{
+                sh 'docker login -u "manikaku" -p "password have to provide" '
+                sh 'docker push $repo'
+            }
+        }
+    }
+}
