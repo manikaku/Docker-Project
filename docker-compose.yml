@@ -2,14 +2,14 @@ version: "3.8"
 
 services:
   instagram:
-  image: manikaku/instagram:latest
+  image: manikaku/instagramapp:latest
   ports:
     - "81:80"
   deploy:
     replicas: 2
 
   facebook:
-  image: manikaku/facebook:latest
+  image: manikaku/facebookapp:latest
   ports:
     - "82:80"
   deploy:
