@@ -1,33 +1,20 @@
 DOCKER PROJECT:
-
-
-yum install docker -y
-systemctl start docker
-systemctl status docker
-
-FROM ubuntu
-RUN apt-get update -y
-RUN apt-get install apache2 -y
-COPY index.html /var/www/html/
-CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
-
-
-
+----------------
 DOCKER FILE	: To create image by automation.
 DOCKER COMPOSE	: To create multiple containers on single server.
 DOCKER SWARM	: To create multiple containers on Multiple server.
 DOCKE STACK	: Docker swarm + Docker compose
 
-1. CREATE 3 SERVERS AND INSTALL DOCKER ON ALL OF THEM & CREATE CLUSTER OF IT
+1. CREATE 3(as our wish)(1 main server and remaining workernodes) SERVERS AND INSTALL DOCKER ON ALL OF THEM & CREATE CLUSTER OF IT
 
 yum install docker -y
 systemctl start docker
 systemctl status docker
-docker swarm init --advertise-addr 172.31.85.110
+docker swarm init --advertise-addr 172.31.85.110(private ip of mainserver)
 docker node ls
 
 
-2. INSTALLING JENKINS (MASTER)
+2. INSTALLING JENKINS (MASTER)(I mean main server)
 
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
@@ -36,18 +23,20 @@ yum install git maven jenkins -y
 systemctl start jenkins.service
 systemctl status jenkins.service
 
+note:
+4. GIVE PERMISSIONS ( Before executing the jenkins pipeline you need to give permissions to connect between jenkins and docker)
 
-3. CREATE CUSTOM IMAGES AND PUSH TO DOCKERHUB WITH TAGS
+chmod 777 /var/run/docker.sock
+systemctl daemon-reload
+systemctl restart docker.service
 
-DOCKER FILE:
-FROM ubuntu
-RUN apt-get update -y
-RUN apt-get install apache2 -y
-COPY index.html /var/www/html/
-CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+Dockerfile, docker-compose.yml I mentioned separately use those codes.
 
-INDEX.HTML:
+---> In the place of variable like $img -- you need add parameters during pipeline creation based on your required names.(here i used choice parameter)
+$repo ( also same you need to add in parameters) 
+---> If you want to push to dockerhub-here in pipeline you need to login frist.
 
+---> After doing the frist build , change index.html page ( I mean headings like facebook , instagram etc..) . Then do second build attaching new parameters.
 
 PIPELINE:
 
@@ -57,7 +46,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git 'https://github.com/RAHAMSHAIK007/dockernewproject.git'
+                git 'repository you need mention here'
             }
         }
         stage('build') {
@@ -80,49 +69,23 @@ pipeline {
 }
 
 
-4. GIVE PERMISSIONS
-
-chmod 777 /var/run/docker.sock
-systemctl daemon-reload
-systemctl restart docker.service
+Take another pipeline - there execute docker-compose.yml 
 
 
 5. WRITE COMPOSE FILE AND PUSH TO GITHUB
 
-version: '3'
+version: '3.8'
 services:
-  devops:
-    image: rahamshaik/devopsreponit:latest
-    ports:
-      - "80:80"
-    volumes:
-      - "devopsvol"
-    deploy:
-      replicas: 3
-
-  aws:
-    image: rahamshaik/awsreponit:latest
+  facebook:
+    image: manikaku/facebook:latest
     ports:
       - "81:80"
-    volumes:
-      - "awsvol"
     deploy:
       replicas: 3
 
-  datascience:
-    image: rahamshaik/datasciencereponit:latest
+  instagram:
+    image: manikaku/instagram:latest
     ports:
       - "82:80"
-    volumes:
-      - "datasciencevol"
-    deploy:
-      replicas: 3
-
-  azure:
-    image: rahamshaik/azurereponit:latest
-    ports:
-      - "83:80"
-    volumes:
-      - "azurevol"
     deploy:
       replicas: 3
