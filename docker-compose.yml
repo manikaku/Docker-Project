@@ -3,12 +3,12 @@ services:
   facebook:
     image: manikaku/facebook:latest
     ports:
-      - "81:80"
+      - "82:80"
     deploy:
       replicas: 2
   instagram:
     image: manikaku/instagram:latest
     ports:
-      - "82:80"
+      - "83:80"
     deploy:
       replicas: 2
