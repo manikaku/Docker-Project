@@ -1,13 +1,13 @@
 version: '3.8'
 services:
-  facebook:
-    image: manikaku/facebook:latest
+  linkedin:
+    image: manikaku/linkedin:latest
     ports:
       - "82:80"
     deploy:
       replicas: 2
   instagram:
-    image: manikaku/instagram:latest
+    image: manikaku/naukari:latest
     ports:
       - "83:80"
     deploy:
