@@ -26,6 +26,25 @@ pipeline{
 }
 
 
+DEPLOYMENT:
+
+pipeline {
+    agent any
+
+    stages {
+        stage('check') {
+            steps {
+                git 'https://github.com/RAHAMSHAIK007/dockernewproject.git'
+            }
+        }
+        stage('stack') {
+            steps {
+                sh 'docker stack deploy -c docker-compose.yml courses'
+            }
+        }
+    }
+}
+
 
 
    
