@@ -19,6 +19,7 @@ I’m excited to share a recent project where I leveraged Jenkins, Docker, Docke
 The goal was to create a seamless, automated pipeline from code commit to deployment, ensuring faster and more reliable updates.
 
 🌟 Key Highlights 🌟 :
+
 1.Automated CI/CD: Set up a Jenkins pipeline to automate the build, test, and deployment process.
 
 2.Scalability: Used Docker Swarm for managing a scalable and resilient cluster.
