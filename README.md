@@ -1,11 +1,11 @@
-🚀 Project Highlight: Automating Web Deployment with Jenkins, Docker Swarm, and Docker Compose! 🚀
+__Project Highlight: Automating Web Deployment with Jenkins, Docker Swarm, and Docker Compose!__
 
 I’m excited to share a recent project where I leveraged Jenkins, Docker, Docker Swarm, and Docker Compose to automate the deployment of web applications.
 
 ✔ Here’s a quick overview:
 
-🔹 Technologies Used 🔹 :
---------------------------------
+__Technologies Used__
+
 1.Jenkins: For setting up a robust CI/CD pipeline.
 
 2.Docker: Containerizing applications to ensure consistency across environments.
@@ -18,7 +18,7 @@ I’m excited to share a recent project where I leveraged Jenkins, Docker, Docke
 
 The goal was to create a seamless, automated pipeline from code commit to deployment, ensuring faster and more reliable updates.
 
-🌟 Key Highlights 🌟 :
+__Key Highlights__
 
 1.Automated CI/CD: Set up a Jenkins pipeline to automate the build, test, and deployment process.
 
